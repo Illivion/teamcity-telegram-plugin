@@ -8,6 +8,7 @@ import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
+import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.GetMe;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetMeResponse;
@@ -71,7 +72,11 @@ public class TelegramBotManager {
    */
   public synchronized void sendMessage(long chatId, @NotNull String message) {
     if (bot != null) {
-      bot.execute(new SendMessage(chatId, message));
+      SendMessage msg = new SendMessage(chatId, message);
+
+      msg.parseMode(ParseMode.HTML);
+
+      bot.execute(msg);
     }
   }
 
